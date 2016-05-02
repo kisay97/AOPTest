@@ -2,6 +2,8 @@ package com.estsoft.AOPTest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -35,5 +37,15 @@ public class MyAspect {
 		System.out.println("call [around.after Advice]");
 		
 		return vo;
+	}
+	
+	@AfterReturning(value = "execution( * *..AOPTest.*.*(..) )", returning="vo")
+	public void afterReturning(ProductVo vo){
+		System.out.println("call [afterReturning Advice] + :" + vo);
+	}
+	
+	@AfterThrowing(value="execution( * *..AOPTest.*.*(..) )", throwing="ex")
+	public void afterThrowing(Throwable ex){
+		System.out.println("call [afterThrowing] : " + ex.toString());
 	}
 }
